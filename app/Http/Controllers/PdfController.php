@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use PDF;
 use App\Models\User;
-use App\Models\Book;
+use App\Models\book;
 use App\Models\UserNotification;
 use App\Models\Notification;
 
@@ -27,12 +27,12 @@ class PdfController extends Controller
         // Retrieve the count of users for each grade level
         $gradeLevelCounts = $usersWithBorrowedCount->groupBy('grade_level')->map->count();
         // Retrieve the most borrowed books based on the 'count' field
-        $mostBorrowedBooks = Book::orderBy('count', 'desc')->get();
+        $mostBorrowedBooks = book::orderBy('count', 'desc')->get();
 
 
 
             // Retrieve all books
-        $books = Book::all();
+        $books = book::all();
 
         // Count occurrences of each subject
         $subjectCounts = $books->groupBy('subject')->map->count();
@@ -42,14 +42,14 @@ class PdfController extends Controller
 
 
          // Retrieve the count of available and not available books
-        $availableBooksCount = Book::where('availability', 'Available')->count();
-        $notAvailableBooksCount = Book::where('availability', 'Not Available')->count();
-        $allBooksCount = Book::count();
+        $availableBooksCount = book::where('availability', 'Available')->count();
+        $notAvailableBooksCount = book::where('availability', 'Not Available')->count();
+        $allBooksCount = book::count();
 
 
-        $goodBooksCount = Book::where('status', 'Good')->count();
-        $damageBooksCount = Book::where('status', 'Damage')->count();
-        $lostBooksCount = Book::where('status', 'Lost')->count();
+        $goodBooksCount = book::where('status', 'Good')->count();
+        $damageBooksCount = book::where('status', 'Damage')->count();
+        $lostBooksCount = book::where('status', 'Lost')->count();
 
 
 
@@ -127,13 +127,13 @@ class PdfController extends Controller
 
     public function generatePdfForBookCondition(){
         // Retrieve the count of available and not available books
-        $availableBooksCount = Book::where('availability', 'Available')->count();
-        $notAvailableBooksCount = Book::where('availability', 'Not Available')->count();
-        $allBooksCount = Book::count();
+        $availableBooksCount = book::where('availability', 'Available')->count();
+        $notAvailableBooksCount = book::where('availability', 'Not Available')->count();
+        $allBooksCount = book::count();
 
-        $goodBooksCount = Book::where('status', 'Good')->count();
-        $damageBooksCount = Book::where('status', 'Damage')->count();
-        $lostBooksCount = Book::where('status', 'Lost')->count();
+        $goodBooksCount = book::where('status', 'Good')->count();
+        $damageBooksCount = book::where('status', 'Damage')->count();
+        $lostBooksCount = book::where('status', 'Lost')->count();
 
 
           // Define the data array
@@ -160,7 +160,7 @@ class PdfController extends Controller
 
     public function generatePdfFormostBorrowedBooks(){
         // Retrieve the most borrowed books based on the 'count' field
-        $mostBorrowedBooks = Book::orderBy('count', 'desc')->get();
+        $mostBorrowedBooks = book::orderBy('count', 'desc')->get();
 
 
          // Define the data array
@@ -213,20 +213,20 @@ class PdfController extends Controller
          $gradeLevelCounts = $usersWithBorrowedCount->groupBy('grade_level')->map->count();
 
         // Retrieve the most borrowed books based on the 'count' field
-        $mostBorrowedBooks = Book::orderBy('count', 'desc')->get();
+        $mostBorrowedBooks = book::orderBy('count', 'desc')->get();
 
         // Retrieve the count of available and not available books
-        $availableBooksCount = Book::where('availability', 'Available')->count();
-        $notAvailableBooksCount = Book::where('availability', 'Not Available')->count();
-        $allBooksCount = Book::count();
+        $availableBooksCount = book::where('availability', 'Available')->count();
+        $notAvailableBooksCount = book::where('availability', 'Not Available')->count();
+        $allBooksCount = book::count();
 
-        $goodBooksCount = Book::where('status', 'Good')->count();
-        $damageBooksCount = Book::where('status', 'Damage')->count();
-        $lostBooksCount = Book::where('status', 'Lost')->count();
+        $goodBooksCount = book::where('status', 'Good')->count();
+        $damageBooksCount = book::where('status', 'Damage')->count();
+        $lostBooksCount = book::where('status', 'Lost')->count();
 
 
         // Retrieve all books
-        $books = Book::all();
+        $books = book::all();
 
         // Count occurrences of each subject
         $subjectCounts = $books->groupBy('subject')->map->count();
@@ -312,13 +312,13 @@ class PdfController extends Controller
 
         // Check if 'mostBorrowedBooks' is selected
         if (in_array('mostBorrowedBooks', $selectedReports)) {
-            $data['mostBorrowedBooks'] = Book::orderBy('count', 'desc')->get();
+            $data['mostBorrowedBooks'] = book::orderBy('count', 'desc')->get();
         }
 
 
 
           // Retrieve all books
-        $books = Book::all();
+        $books = book::all();
 
         // Count occurrences of each subject
         $subjectCounts = $books->groupBy('subject')->map->count();
@@ -338,19 +338,19 @@ class PdfController extends Controller
       // Check if 'bookCondition' is selected
         if (in_array('bookCondition', $selectedReports)) {
             $data['bookCondition'] = [
-                'availableBooksCount' => Book::where('availability', 'Available')->count(),
-                'notAvailableBooksCount' => Book::where('availability', 'Not Available')->count(),
-                'allBooksCount' => Book::count(),
-                'goodBooksCount' => Book::where('status', 'Good')->count(),
-                'damageBooksCount' => Book::where('status', 'Damage')->count(),
-                'lostBooksCount' => Book::where('status', 'Lost')->count(),
+                'availableBooksCount' => book::where('availability', 'Available')->count(),
+                'notAvailableBooksCount' => book::where('availability', 'Not Available')->count(),
+                'allBooksCount' => book::count(),
+                'goodBooksCount' => book::where('status', 'Good')->count(),
+                'damageBooksCount' => book::where('status', 'Damage')->count(),
+                'lostBooksCount' => book::where('status', 'Lost')->count(),
             ];
         }
 
 
 
        // Retrieve all books
-       $books = Book::all();
+       $books = book::all();
 
        // Count occurrences of each subject
        $subjectCounts = $books->groupBy('subject')->map->count();
