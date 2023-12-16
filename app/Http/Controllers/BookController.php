@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
+use App\Models\book;
 use App\Models\User;
 
 use Illuminate\Http\Request;
@@ -51,7 +51,7 @@ class BookController extends Controller
             $validatedData['image'] = $imagePath;
         }
 
-        Book::create($validatedData);
+        book::create($validatedData);
 
         return redirect()->route('bookList')->with('success', 'Added successfully!');
     }
@@ -63,7 +63,7 @@ class BookController extends Controller
     public function edit($id)
     {
         // Retrieve the book by ID from the database
-        $book = Book::findOrFail($id);
+        $book = book::findOrFail($id);
 
         // Return the view for editing the book with the book data
         return view('editBook', compact('book'));
@@ -87,7 +87,7 @@ class BookController extends Controller
         ]);
 
         // Step 2: Find the book by ID
-        $book = Book::findOrFail($id);
+        $book = book::findOrFail($id);
 
         // Step 3: Update the book's attributes
         $book->update($validatedData);
@@ -114,7 +114,7 @@ class BookController extends Controller
 
     public function viewBook($id)
     {
-        $book = Book::find($id);
+        $book = book::find($id);
         $userHasRequestedThisBook = false;
         $userHasAcceptedRequest = false;
         $userHasAcceptedRequestForReturnedBook = false;
@@ -185,7 +185,7 @@ class BookController extends Controller
 
     public function archiveBook($id)
     {
-        $book = Book::find($id);
+        $book = book::find($id);
 
         if (!$book) {
             // Handle the case where the book is not found.
