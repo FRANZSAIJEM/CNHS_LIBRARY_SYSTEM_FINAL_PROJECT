@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\UserBookRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Book;
+use App\Models\book;
 use App\Models\AcceptedRequest;
 
 use Illuminate\Support\Facades\Auth;
@@ -227,7 +227,7 @@ class StudentController extends Controller
         $bookId = $request->input('book_id');
 
         // Find the book by ID
-        $book = Book::findOrFail($bookId);
+        $book = book::findOrFail($bookId);
 
         // Find or create the user's book request record
         $userBookRequest = UserBookRequest::firstOrNew(['user_id' => $user->id]);
