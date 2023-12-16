@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\AcceptedRequest;
 use App\Models\User;
-use App\Models\Book;
+use App\Models\book;
 
 
 
@@ -22,7 +22,7 @@ class ManualRecordController extends Controller
                       })
                       ->get();
 
-        $books = Book::where('title', 'LIKE', "%$query%")->get();
+        $books = book::where('title', 'LIKE', "%$query%")->get();
 
         return view('manualRecord', compact('users', 'books'));
     }
@@ -67,7 +67,7 @@ class ManualRecordController extends Controller
         // $books = book::whereIn('id', $acceptedRequests->pluck('book_id'))->get();
 
         $users = User::all()->where('is_admin', false);
-        $books = Book::all();
+        $books = book::all();
 
 
 
