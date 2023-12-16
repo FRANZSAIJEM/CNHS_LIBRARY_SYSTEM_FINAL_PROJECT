@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Book;
+use App\Models\book;
 use App\Models\ArchiveBook;
 
 class ArchiveBookController extends Controller
@@ -40,7 +40,7 @@ class ArchiveBookController extends Controller
 
     public function archiveBook($id)
     {
-        $book = Book::find($id);
+        $book = book::find($id);
 
         if (!$book) {
             // Handle the case where the book is not found.
