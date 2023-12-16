@@ -13,7 +13,7 @@ use App\Models\TimeDuration;
 
 use Illuminate\Validation\Rule; // Import the Rule class
 
-use App\Models\Book; // Import your Book model
+use App\Models\book; // Import your Book model
 use App\Models\AcceptedRequest; // Import your Book model
 use App\Models\Notification;
 use App\Models\UserNotification;
@@ -173,7 +173,7 @@ class AcceptRequestController extends Controller
         // $books = book::whereIn('id', $acceptedRequests->pluck('book_id'))->get();
 
         $users = User::all()->where('is_admin', false);
-        $books = Book::all();
+        $books = book::all();
 
 
 
