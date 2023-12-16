@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\book;
+use App\Models\Book;
 use App\Models\User;
 
 use Illuminate\Http\Request;
@@ -185,7 +185,7 @@ class BookController extends Controller
 
     public function archiveBook($id)
     {
-        $book = book::find($id);
+        $book = Book::find($id);
 
         if (!$book) {
             // Handle the case where the book is not found.

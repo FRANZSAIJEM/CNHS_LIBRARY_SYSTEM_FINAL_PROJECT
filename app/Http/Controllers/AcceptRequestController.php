@@ -173,7 +173,7 @@ class AcceptRequestController extends Controller
         // $books = book::whereIn('id', $acceptedRequests->pluck('book_id'))->get();
 
         $users = User::all()->where('is_admin', false);
-        $books = book::all();
+        $books = Book::all();
 
 
 

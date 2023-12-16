@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\book;
+use App\Models\Book;
 use App\Models\AcceptedRequest;
 use App\Models\BorrowCount;
 use App\Models\UserBookRequest;
@@ -23,7 +23,7 @@ class BookListController extends Controller
         // Fetch the user's book request count
         $bookRequestCount = UserBookRequest::where('user_id', $user->id)->first();
 
-        $query = book::query();
+        $query = Book::query();
 
         if ($request->has('book_search')) {
             $bookSearch = $request->input('book_search');

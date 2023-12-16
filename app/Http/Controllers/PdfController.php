@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use PDF;
 use App\Models\User;
-use App\Models\book;
+use App\Models\Book;
 use App\Models\UserNotification;
 use App\Models\Notification;
 
@@ -32,7 +32,7 @@ class PdfController extends Controller
 
 
             // Retrieve all books
-        $books = book::all();
+        $books = Book::all();
 
         // Count occurrences of each subject
         $subjectCounts = $books->groupBy('subject')->map->count();
@@ -42,14 +42,14 @@ class PdfController extends Controller
 
 
          // Retrieve the count of available and not available books
-        $availableBooksCount = book::where('availability', 'Available')->count();
-        $notAvailableBooksCount = book::where('availability', 'Not Available')->count();
-        $allBooksCount = book::count();
+        $availableBooksCount = Book::where('availability', 'Available')->count();
+        $notAvailableBooksCount = Book::where('availability', 'Not Available')->count();
+        $allBooksCount = Book::count();
 
 
-        $goodBooksCount = book::where('status', 'Good')->count();
-        $damageBooksCount = book::where('status', 'Damage')->count();
-        $lostBooksCount = book::where('status', 'Lost')->count();
+        $goodBooksCount = Book::where('status', 'Good')->count();
+        $damageBooksCount = Book::where('status', 'Damage')->count();
+        $lostBooksCount = Book::where('status', 'Lost')->count();
 
 
 
@@ -226,7 +226,7 @@ class PdfController extends Controller
 
 
         // Retrieve all books
-        $books = book::all();
+        $books = Book::all();
 
         // Count occurrences of each subject
         $subjectCounts = $books->groupBy('subject')->map->count();
@@ -350,7 +350,7 @@ class PdfController extends Controller
 
 
        // Retrieve all books
-       $books = book::all();
+       $books = Book::all();
 
        // Count occurrences of each subject
        $subjectCounts = $books->groupBy('subject')->map->count();
