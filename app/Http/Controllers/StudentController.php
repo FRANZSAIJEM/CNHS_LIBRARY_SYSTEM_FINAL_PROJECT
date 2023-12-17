@@ -29,7 +29,8 @@ class StudentController extends Controller
 
     public function index(Request $request)
     {
-        $query = User::where('is_admin', false);
+        $query = User::where('is_admin', false)
+        ->where('is_assistant', false);
         $fines = $request->session()->get('fines');
 
         if ($request->has('id_number_search')) {

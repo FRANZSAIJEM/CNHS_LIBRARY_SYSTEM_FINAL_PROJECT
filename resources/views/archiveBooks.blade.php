@@ -204,6 +204,7 @@
            .bookCenter{
            display: flex;
            place-content: center;
+           margin-left: 100px;
 
        }
            .modalWidth{

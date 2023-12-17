@@ -19,7 +19,9 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $totalStudents = User::where('is_admin', false)->count();
+        $totalStudents = User::where('is_admin', false)
+        ->where('is_assistant', false) // Exclude users with is_assistant set to true
+        ->count();
         $totalBooks = Book::count();
 
         $availableBooks = Book::where('availability', 'Available')->count();
