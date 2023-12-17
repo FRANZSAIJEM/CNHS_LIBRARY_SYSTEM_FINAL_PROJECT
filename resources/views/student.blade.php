@@ -125,22 +125,29 @@
 
 
 
-                                {{-- display here the total time --}}
-
+                                @if($student->is_suspended == 1)
                                 <button class="text-red-600 hover:text-red-700 duration-100"
                                         type="button"
                                         style="cursor: pointer; border-radius: 5px; padding: 10px;"
                                         onclick="showConfirmationModal({{ $student->id }})"
                                         data-student-id="{{ $student->id }}"
                                         @if($student->is_suspended == 1) disabled @endif>
-                                    <b><i class="fa-solid fa-lock"></i>
-                                        @if($student->is_suspended == 1) Suspended @else Suspend @endif
-                                    </b>
-                                    <div id="countdown">
+                                    <b><i class="fa-solid fa-lock"></i> Suspended</b>
+                                    <div id="countdown_{{ $student->id }}">
                                         {{ $student->getSuspensionDuration() }}
                                     </div>
-
                                 </button>
+                            @else
+                                <button class="text-red-600 hover:text-red-700 duration-100"
+                                        type="button"
+                                        style="cursor: pointer; border-radius: 5px; padding: 10px;"
+                                        onclick="showConfirmationModal({{ $student->id }})"
+                                        data-student-id="{{ $student->id }}"
+                                        @if($student->is_suspended == 1) disabled @endif>
+                                    <b><i class="fa-solid fa-lock"></i> Suspend</b>
+                                </button>
+                            @endif
+
 
 
                               </div>
@@ -359,11 +366,14 @@ function hideConfirmationModal() {
     modal.style.display = 'none';
 }
 
+function updateCountdown(studentId, startDate, endDate) {
+        var startDate = new Date(startDate);
+        var endDate = new Date(endDate);
 
-function updateCountdown() {
-        // Assuming $student is passed from the server as a JSON object with the necessary properties
-        var startDate = new Date("{{ $student->suspend_start_date }}");
-        var endDate = new Date("{{ $student->suspend_end_date }}");
+        if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+            console.error("Invalid date format. Check PHP variable values.");
+            return;
+        }
 
         var now = new Date();
         var timeRemaining = endDate - now;
@@ -373,19 +383,24 @@ function updateCountdown() {
             var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
             var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
-            document.getElementById('countdown').innerHTML = hours + "h " + minutes + "m " + seconds + "s";
+            // Use dynamic ID based on student ID
+            document.getElementById('countdown_' + studentId).innerHTML = hours + "h " + minutes + "m " + seconds + "s";
         } else {
-
             clearInterval(countdownInterval);
         }
     }
 
-    // Update the countdown every second
-    var countdownInterval = setInterval(updateCountdown, 1000);
+    var countdownInterval = setInterval(function () {
+        // Assuming you have a PHP variable called $studentsArray containing the students data
+        @foreach($students as $student)
+            updateCountdown('{{ $student->id }}', '{{ $student->suspend_start_date }}', '{{ $student->suspend_end_date }}');
+        @endforeach
+    }, 1000);
 
     // Initial update
-    updateCountdown();
-
+    @foreach($students as $student)
+        updateCountdown('{{ $student->id }}', '{{ $student->suspend_start_date }}', '{{ $student->suspend_end_date }}');
+    @endforeach
 
     </script>
 </x-app-layout>
